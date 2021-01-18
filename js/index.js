@@ -25,6 +25,11 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
   });
+
+  const subButton = document.querySelector('#btnSubmit');
+
+  const resetButton = document.querySelector('#btnReset');
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -44,6 +49,18 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'Who invented JavaScript?',
+      o: ['Douglas Crockford', 'Sheryl Sandberg', 'Brendan Eich', 'Mark Zuckerberg'],
+      a: 2,
+    },
+    {
+      q: 'Who created this quiz?',
+      o: ['Michael', 'Lavina', 'Laize', 'Lisa'],
+      a: 0,
+    },
+
+
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -66,25 +83,57 @@ window.addEventListener('DOMContentLoaded', () => {
   // Calculate the score
   const calculateScore = () => {
     let score = 0;
+    let answer ='';
+    let correctAnswer;
     quizArray.map((quizItem, index) => {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < quizItem.length; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
+        let liValue = liElement.value;
+        let radioElementValue = radioElement.value
+        anwer = li[i];
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liValue.style.color = 'green';
+          score++;
+      
+        } else
+        {
+          li.style.color = 'red';
         }
 
-        if (radioElement.checked) {
-          // code for task 1 goes here
-        }
-      }
-    });
+        if (radioElement.checked == quizItem.a) {
+
+           // code for task 1 goes here
+          console.log('it is correct');
+          score++;
+
+        } 
+          
+        }//end for loop
+
+       correctAnswer.innerHTML = score + '/' + quizArray[i];
+
+      
+    }); //end quizArray
   };
-
   // call the displayQuiz function
   displayQuiz();
+
+  //Clear Display
+
+  function clearDisplay() {
+    while (displayQuiz.firstChild){
+      displayQuiz.removeChild(displayQuiz.firstChild);
+    }
+    displayQuiz();
+  }
+
+  //submit quiz
+  subButton.addEventListener('click', calculateScore);
+  resetButton.addEventListener('click', clearDisplay);
 });
