@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
-          liValue.style.color = 'green';
+          liElement.style.color = 'green';
           score++;
       
         } else
@@ -109,14 +109,17 @@ window.addEventListener('DOMContentLoaded', () => {
         if (radioElement.checked == quizItem.a) {
 
            // code for task 1 goes here
-          console.log('it is correct');
+         //console.log('it is correct');
           score++;
 
         } 
           
         }//end for loop
 
+        
+
        correctAnswer.innerHTML = score + '/' + quizArray[i];
+       displayQuiz();
 
       
     }); //end quizArray
