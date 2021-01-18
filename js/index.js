@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const subButton = document.querySelector('#btnSubmit');
 
   const resetButton = document.querySelector('#btnReset');
+  const scoreView = document.querySelector('#score');
 
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -60,7 +61,6 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 0,
     },
 
-
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -84,26 +84,26 @@ window.addEventListener('DOMContentLoaded', () => {
   const calculateScore = () => {
     let score = 0;
     let answer ='';
-    let correctAnswer;
+   
     quizArray.map((quizItem, index) => {
-      for (let i = 0; i < quizItem.length; i++) {
+      for (let i = 0; i < 4; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
-        let liValue = liElement.value;
-        let radioElementValue = radioElement.value
-        anwer = li[i];
+       // let liValue = liElement.value;
+        //let radioElementValue = radioElement.value
+       // anwer = li[i];
 
         if (quizItem.a == i) {
           //change background color of li element here
           liElement.style.color = 'green';
-          score++;
+          //score++;
       
         } else
         {
-          li.style.color = 'red';
+          liElement.style.color = 'red';
         }
 
         if (radioElement.checked == quizItem.a) {
@@ -111,22 +111,20 @@ window.addEventListener('DOMContentLoaded', () => {
            // code for task 1 goes here
          //console.log('it is correct');
           score++;
-
         } 
           
         }//end for loop
-
-        
-
-       correctAnswer.innerHTML = score + '/' + quizArray[i];
-       displayQuiz();
-
       
     }); //end quizArray
-  };
+  }; //end calculationScore
+
+  function scoreCard() {
+    
+    scoreView.innerHTML = `<p>Total score- ${score} </p>`;
+  }
   // call the displayQuiz function
   displayQuiz();
-
+  
   //Clear Display
 
   function clearDisplay() {
@@ -137,6 +135,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //submit quiz
+ 
   subButton.addEventListener('click', calculateScore);
+  subButton.addEventListener('click', scoreCard);
   resetButton.addEventListener('click', clearDisplay);
+  
 });
