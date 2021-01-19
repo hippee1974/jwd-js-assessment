@@ -81,9 +81,8 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // Calculate the score
+  let score = 0;
   const calculateScore = () => {
-    let score = 0;
-    let answer ='';
    
     quizArray.map((quizItem, index) => {
       for (let i = 0; i < 4; i++) {
@@ -92,24 +91,21 @@ window.addEventListener('DOMContentLoaded', () => {
         let r = `radio_${index}_${i}`;
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
-       // let liValue = liElement.value;
-        //let radioElementValue = radioElement.value
-       // anwer = li[i];
-
+      
         if (quizItem.a == i) {
           //change background color of li element here
           liElement.style.color = 'green';
-          //score++;
+         
       
         } else
         {
           liElement.style.color = 'red';
         }
 
-        if (radioElement.checked == quizItem.a) {
+        if (radioElement.checked && quizItem.a===i) {
 
            // code for task 1 goes here
-         //console.log('it is correct');
+        
           score++;
         } 
           
